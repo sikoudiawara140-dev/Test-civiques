@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Teste Civique</title>
+<style>
+body { font-family: Arial; background:#f4f4f4; padding:20px; }
+h1 { text-align:center; }
+.question { background:white; padding:15px; margin:10px 0; border-radius:10px; }
+button { margin-top:10px; padding:10px; }
+.correct { color:green; }
+.wrong { color:red; }
+</style>
+</head>
+
+<body>
+
+<h1>Test Civique - QCM</h1>
+
+<div id="quiz"></div>
+<button onclick="corriger()">Corriger</button>
+
+<h2 id="resultat"></h2>
+
+<script>
+
+const questions = [
+{
+q: "Quelle est la devise de la République française ?",
+choices: ["Liberté, Égalité, Fraternité", "Travail, Famille, Patrie", "Ordre et progrès", "Paix et justice"],
+answer: 0
+},
+{
+q: "Que commémore le 14 juillet ?",
+choices: ["La Révolution française", "La fin de la guerre", "Une élection", "Une loi"],
+answer: 0
+},
+{
+q: "À quel âge peut-on voter en France ?",
+choices: ["16 ans", "18 ans", "21 ans", "25 ans"],
+answer: 1
+},
+{
+q: "Qui vote les lois en France ?",
+choices: ["Le Président", "Le Parlement", "Le Maire", "Le peuple directement"],
+answer: 1
+},
+{
+q: "La liberté d’expression signifie :",
+choices: [
+"Dire tout sans limite",
+"S’exprimer dans le respect des lois",
+"Insulter librement",
+"Ne pas parler"
+],
+answer: 1
+},
+{
+q: "En France, voter est :",
+choices: ["Obligatoire", "Interdit", "Un droit", "Payant"],
+answer: 2
+},
+{
+q: "Qui dirige le gouvernement ?",
+choices: ["Le Président", "Le Premier ministre", "Le Sénat", "Le Maire"],
+answer: 1
+},
+{
+q: "Peut-on changer de religion en France ?",
+choices: ["Non", "Oui", "Seulement avec autorisation", "Seulement adulte"],
+answer: 1
+},
+{
+q: "Que garantit la laïcité ?",
+choices: [
+"La liberté religieuse",
+"L’interdiction des religions",
+"Une religion obligatoire",
+"La domination d’une religion"
+],
+answer: 0
+},
+{
+q: "Quel symbole représente la République ?",
+choices: ["Un lion", "Marianne", "Un aigle", "Une étoile"],
+answer: 1
+}
+];
+
+const quizDiv = document.getElementById("quiz");
+
+questions.forEach((q, index) => {
+let html = `<div class="question"><p>${index+1}. ${q.q}</p>`;
+q.choices.forEach((choice, i) => {
+html += `
+<label>
+<input type="radio" name="q${index}" value="${i}">
+${choice}
+</label><br>`;
+});
+html += `</div>`;
+quizDiv.innerHTML += html;
+});
+
+function corriger() {
+let score = 0;
+
+questions.forEach((q, index) => {
+let selected = document.querySelector(`input[name="q${index}"]:checked`);
+if (selected) {
+if (parseInt(selected.value) === q.answer) {
+score++;
+}
+}
+});
+
+document.getElementById("resultat").innerText =
+"Score : " + score + " / " + questions.length;
+}
+
+</script>
+
+</body>
+</html>
